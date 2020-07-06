@@ -102,7 +102,11 @@ extension IAPManager {
         loadedProducts = products
         for p in products {
             if #available(iOS 12.0, *) {
-                print("Found product: \(p.productIdentifier) \(p.localizedTitle) \(p.price.floatValue) isDownloadable: \(p.isDownloadable), subscriptionGroupIdentifier: \(String(describing: p.subscriptionGroupIdentifier)), subscription Period Unit\(String(describing: p.subscriptionPeriod?.unit)), \(String(describing: p.subscriptionPeriod?.numberOfUnits))")
+                if #available(OSX 10.15, *) {
+                    print("Found product: \(p.productIdentifier) \(p.localizedTitle) \(p.price.floatValue) isDownloadable: \(p.isDownloadable), subscriptionGroupIdentifier: \(String(describing: p.subscriptionGroupIdentifier)), subscription Period Unit\(String(describing: p.subscriptionPeriod?.unit)), \(String(describing: p.subscriptionPeriod?.numberOfUnits))")
+                } else {
+                    // Fallback on earlier versions
+                }
             } else {
                 // Fallback on earlier versions
             }

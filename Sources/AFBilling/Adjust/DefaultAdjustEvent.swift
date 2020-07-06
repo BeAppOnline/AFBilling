@@ -7,35 +7,23 @@
 //
 
 import Foundation
-import Adjust
 import StoreKit
 
 final class DefaultAdjustEvent: AdjustEventsRepository {
-    
-    private var appConfiguration = AdjustConfigurations()
     //private var storageRepository: DataStorageRepository
     
     private var sendTaskOperation: OperationQueue? { willSet { sendTaskOperation?.cancelAllOperations() } }
     
-//    init(storageRepository: DataStorageRepository) {
-//        self.storageRepository = storageRepository
-//        storageRepository.loadUser { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .success(let user):
-//                self.user = user
-//                break
-//            case .failure(_):
-//                break
-//            }
-//        }
-//    }
+    public var sendSuccessEventBlock : (() -> ())?
+    public var sendRestoreEventBlock : (() -> ())?
+    public var sendFailureEventBlock : (() -> ())?
+
     
     func sendSuccessEvent(transaction: SKPaymentTransaction) {
         sendTaskOperation = OperationQueue()
         sendTaskOperation?.addOperation { [weak self] in
             guard let self = self else { return }
-            Adjust.trackEvent(self.queryCallback(token: self.appConfiguration.eventSuccessToken, transaction: transaction))
+            self.sendSuccessEventBlock?()
         }
     }
     
@@ -43,8 +31,7 @@ final class DefaultAdjustEvent: AdjustEventsRepository {
         sendTaskOperation = OperationQueue()
         sendTaskOperation?.addOperation({ [weak self] in
             guard let self = self else { return }
-            print( self.appConfiguration.eventFailureToken)
-            Adjust.trackEvent(self.queryCallback(token: self.appConfiguration.eventFailureToken, transaction: transaction))
+            self.sendFailureEventBlock?()
         })
     }
     
@@ -52,40 +39,40 @@ final class DefaultAdjustEvent: AdjustEventsRepository {
         sendTaskOperation = OperationQueue()
         sendTaskOperation?.addOperation({ [weak self] in
             guard let self = self else { return }
-            Adjust.trackEvent(self.queryCallback(token: self.appConfiguration.eventRestore, transaction: transaction))
+            self.sendRestoreEventBlock?()
         })
     }
     
-    private func queryCallback(token: String, transaction: SKPaymentTransaction) -> ADJEvent? {
-        let adjustEvent = ADJEvent(eventToken: token)
-        switch transaction.transactionState {
-        case .purchasing:
-            break
-        case .purchased:
-            adjustEvent?.addCallbackParameter("eventValue", value: "ok")
-            break
-        case .failed:
-            adjustEvent?.addCallbackParameter("eventValue", value: "failed")
-            break
-        case .restored:
-            adjustEvent?.addCallbackParameter("eventValue", value: "Restored ok")
-        case .deferred:
-            break
-        @unknown default:
-            break
-        }
-        
-        adjustEvent?.addCallbackParameter("inAppOriginalTransactionDate", value: transaction.original?.transactionDate?.string ?? "None")
-        adjustEvent?.addCallbackParameter("inAppTransactionId", value: transaction.transactionIdentifier ?? "Not Provided")
-        adjustEvent?.addCallbackParameter("inAppPassword", value: "")
-        adjustEvent?.addCallbackParameter("inAppProductId", value: transaction.payment.productIdentifier)
-        adjustEvent?.addCallbackParameter("inAppOriginalTransactionId", value: transaction.original?.transactionIdentifier ?? "Not provided")
-        adjustEvent?.addCallbackParameter("inAppTransactionDate", value: transaction.transactionDate?.string ?? "Not Provided")
-//        if let tempUser = user, tempUser.userDeeplink.isDeeplink {
-//            adjustEvent?.addCallbackParameter("inAppDeeplink", value: tempUser.userDeeplink.url)
+//    private func queryCallback(token: String, transaction: SKPaymentTransaction) -> ADJEvent? {
+//        let adjustEvent = ADJEvent(eventToken: token)
+//        switch transaction.transactionState {
+//        case .purchasing:
+//            break
+//        case .purchased:
+//            adjustEvent?.addCallbackParameter("eventValue", value: "ok")
+//            break
+//        case .failed:
+//            adjustEvent?.addCallbackParameter("eventValue", value: "failed")
+//            break
+//        case .restored:
+//            adjustEvent?.addCallbackParameter("eventValue", value: "Restored ok")
+//        case .deferred:
+//            break
+//        @unknown default:
+//            break
 //        }
-        return adjustEvent
-    }
+//
+//        adjustEvent?.addCallbackParameter("inAppOriginalTransactionDate", value: transaction.original?.transactionDate?.string ?? "None")
+//        adjustEvent?.addCallbackParameter("inAppTransactionId", value: transaction.transactionIdentifier ?? "Not Provided")
+//        adjustEvent?.addCallbackParameter("inAppPassword", value: "")
+//        adjustEvent?.addCallbackParameter("inAppProductId", value: transaction.payment.productIdentifier)
+//        adjustEvent?.addCallbackParameter("inAppOriginalTransactionId", value: transaction.original?.transactionIdentifier ?? "Not provided")
+//        adjustEvent?.addCallbackParameter("inAppTransactionDate", value: transaction.transactionDate?.string ?? "Not Provided")
+////        if let tempUser = user, tempUser.userDeeplink.isDeeplink {
+////            adjustEvent?.addCallbackParameter("inAppDeeplink", value: tempUser.userDeeplink.url)
+////        }
+//        return adjustEvent
+//    }
     
 }
 
