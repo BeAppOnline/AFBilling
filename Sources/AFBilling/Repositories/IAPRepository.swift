@@ -9,7 +9,7 @@
 import Foundation
 import StoreKit
 
-public enum PurchaseStatus {
+public public enum PurchaseStatus {
     case restoreSuccessfully(id: String, expireDate: Date, originDate: Date)
     case purchasedSuccessfully(id: String, expireDate: Date, originDate: Date)
     case restoreFailed(error: String)
@@ -20,7 +20,7 @@ public enum PurchaseStatus {
     case activeTestEnv
 }
 public typealias ValidatePurchaseCompletion = ((Result<PurchaseStatus, Error>) -> Void)
-protocol IAPRepository {
+public protocol IAPRepository {
     func requestProduct(_ completion: @escaping ProductsRequestCompletionHandler)
     func buyProduct(_ product: ProductIdentifier)
     func isProductPurchased(_ productIdentifier: ProductIdentifier, completion: @escaping (Result<Bool, Error>) -> Void)
