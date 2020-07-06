@@ -9,7 +9,7 @@
 import Foundation
 import StoreKit
 
-public public enum PurchaseStatus {
+public enum PurchaseStatus {
     case restoreSuccessfully(id: String, expireDate: Date, originDate: Date)
     case purchasedSuccessfully(id: String, expireDate: Date, originDate: Date)
     case restoreFailed(error: String)

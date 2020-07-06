@@ -25,6 +25,6 @@ let package = Package(
             dependencies: ["AFNetworks"]),
         .testTarget(
             name: "AFBillingTests",
-            dependencies: ["AFBilling"]),
+            dependencies: ["AFBilling","AFNetworks"]),
     ]
 )
