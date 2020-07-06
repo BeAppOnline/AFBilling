@@ -1,3 +1,3 @@
 # AFBilling
 
-A description of this package.
+A package will help to purchase / subscribe and validate the receipt 
