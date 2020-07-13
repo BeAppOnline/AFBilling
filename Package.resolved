@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AFNetworks",
+        "repositoryURL": "https://github.com/afdetails/AFNetwork.git",
+        "state": {
+          "branch": null,
+          "revision": "c786bcc7409be222ebf3390d01c16d3c02a1ab55",
+          "version": "1.0.5"
+        }
+      },
+      {
+        "package": "Cancellable",
+        "repositoryURL": "https://github.com/BeAppOnline/Cancellable.git",
+        "state": {
+          "branch": null,
+          "revision": "11ecd874d9f27ab1a63632273f116109d0672e87",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

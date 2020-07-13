@@ -10,13 +10,11 @@ import Foundation
 import AFNetworks
 import Cancellable
 
-final class DefaultIAPRepository {
+public final class DefaultIAPRepository {
     
     private let manager: InAppPurchaseBillingRepository
-    private let iTunesDataService: DataTransferService
-    init(manager: InAppPurchaseBillingRepository, iTunesDataService: DataTransferService) {
+    public init(manager: InAppPurchaseBillingRepository) {
         self.manager = manager
-        self.iTunesDataService = iTunesDataService
     }
 }
 
