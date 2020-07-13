@@ -8,7 +8,7 @@
 
 import StoreKit
 
-protocol InAppPurchaseBillingRepository: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+public protocol InAppPurchaseBillingRepository: NSObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])
     func requestProducts(_ completion: @escaping ProductsRequestCompletionHandler)
     func buyProduct(_ productIdentifier: ProductIdentifier)
