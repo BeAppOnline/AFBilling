@@ -8,6 +8,7 @@
 
 import Foundation
 import AFNetworks
+import Cancellable
 
 final class DefaultIAPRepository {
     

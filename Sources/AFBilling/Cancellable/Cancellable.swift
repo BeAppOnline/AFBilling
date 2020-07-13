@@ -6,8 +6,3 @@
 //  Copyright © 2020 beApp. All rights reserved.
 //
 
-import Foundation
-
-public protocol Cancellable {
-    func cancel()
-}

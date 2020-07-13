@@ -7,6 +7,7 @@
 
 import Foundation
 @testable import AFBilling
+import Cancellable
 
 protocol AFBillingUseCase {
    func requestProduct(_ completion: @escaping ProductsRequestCompletionHandler)

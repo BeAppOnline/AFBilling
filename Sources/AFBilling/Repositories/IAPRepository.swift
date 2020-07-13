@@ -8,6 +8,7 @@
 
 import Foundation
 import StoreKit
+import Cancellable
 
 public enum PurchaseStatus {
     case restoreSuccessfully(id: String, expireDate: Date, originDate: Date)
