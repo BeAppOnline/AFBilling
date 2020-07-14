@@ -19,35 +19,35 @@ public final class DefaultIAPRepository {
 }
 
 extension DefaultIAPRepository: IAPRepository {
-    func registerObserver() {
+    public func registerObserver() {
         self.manager.registerObserver()
     }
     
-    func removeObserver() {
+    public func removeObserver() {
         self.manager.removeObserver()
     }
     
-    func requestProduct(_ completion: @escaping ProductsRequestCompletionHandler) {
+    public func requestProduct(_ completion: @escaping ProductsRequestCompletionHandler) {
         self.manager.requestProducts(completion)
     }
     
-    func buyProduct(_ product: ProductIdentifier) {
+    public func buyProduct(_ product: ProductIdentifier) {
         self.manager.buyProduct(product)
     }
     
-    func isProductPurchased(_ productIdentifier: ProductIdentifier, completion: @escaping (Result<Bool, Error>) -> Void) {
+    public func isProductPurchased(_ productIdentifier: ProductIdentifier, completion: @escaping (Result<Bool, Error>) -> Void) {
         completion(.success(self.manager.isProductPurchased(productIdentifier)))
     }
     
-    func canMakePurchase(_ completion: @escaping (Result<Bool, Error>) -> Void) {
+    public func canMakePurchase(_ completion: @escaping (Result<Bool, Error>) -> Void) {
         completion(.success(self.manager.canMakePayment()))
     }
     
-    func restorePurchase() {
+    public func restorePurchase() {
         self.manager.restorePurchase()
     }
     
-    func receiptValidation(completion: @escaping ValidatePurchaseCompletion) -> Cancellable? {
+    public func receiptValidation(completion: @escaping ValidatePurchaseCompletion) -> Cancellable? {
         let operation: OperationQueue = OperationQueue()
         operation.addOperation {
             var isReceiptPresent = false

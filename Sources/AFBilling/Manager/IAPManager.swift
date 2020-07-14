@@ -41,12 +41,12 @@ open class IAPManager: NSObject, InAppPurchaseBillingRepository {
         SKPaymentQueue.default().remove(self)
     }
     
-    func removeObserver() {
+    public func removeObserver() {
         SKPaymentQueue.default().remove(self)
         
     }
     
-    func registerObserver() {
+    public func registerObserver() {
        //SKPaymentQueue.default().add(self)
     }
 }
@@ -228,7 +228,7 @@ extension IAPManager {
         }
     }
     
-    func refreshReceipt(completion: @escaping () -> Void) {
+    public func refreshReceipt(completion: @escaping () -> Void) {
         let request = SKReceiptRefreshRequest()
         request.delegate = self
         request.start()

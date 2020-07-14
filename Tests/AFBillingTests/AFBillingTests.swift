@@ -24,7 +24,7 @@ final class AFBillingTests: XCTestCase {
     
     internal func makeInAppPurchaseRepository() -> IAPRepository {
         dependencies = Dependencies(iTunesDataTransferService: iTunesDataTransferService)
-        return DefaultIAPRepository(manager: makeIAPManager(), iTunesDataService: dependencies.iTunesDataTransferService)
+        return DefaultIAPRepository(manager: makeIAPManager())
     }
     
     func testExample() {
