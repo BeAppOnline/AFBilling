@@ -19,7 +19,7 @@ final class AFBillingTests: XCTestCase {
     }()
     
     private func makeIAPManager() -> InAppPurchaseBillingRepository {
-        return IAPManager(productIds: ["IAPConfiguration().productIdentifiers"])
+        return IAPManager(productIds: ["IAPConfiguration().productIdentifiers"], defaultAdjustEvent: DefaultAdjustEvent())
     }
     
     internal func makeInAppPurchaseRepository() -> IAPRepository {

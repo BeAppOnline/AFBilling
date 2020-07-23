@@ -16,10 +16,11 @@ open class IAPManager: NSObject, InAppPurchaseBillingRepository {
     private var productsRequestCompletionHandler: ProductsRequestCompletionHandler?
     private var loadedProducts: [SKProduct] = []
     private var boolTest: Bool = false
-    private let defaultAdjustEvent = DefaultAdjustEvent()
+    private let defaultAdjustEvent: AdjustEventsRepository
     private var didFinishRequesting = false
     
-    public init(productIds: Set<ProductIdentifier>) {
+    public init(productIds: Set<ProductIdentifier>, defaultAdjustEvent: AdjustEventsRepository) {
+        self.defaultAdjustEvent = defaultAdjustEvent
         productIdentifiers = productIds
         for productIdentifier in productIds {
           let purchased = UserDefaults.standard.bool(forKey: productIdentifier)
